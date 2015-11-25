@@ -35,6 +35,7 @@ public class createSQLite {
 
                 stmt.executeUpdate(sql_actor);
 
+
                 stmt.close();
                 c.close();
 

@@ -13,13 +13,13 @@ public class insertSQLite {
             Statement stmt = null;
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:test.db");
+                c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
                 c.setAutoCommit(false);
                 System.out.println("Opened database successfully");
 
                 stmt = c.createStatement();
-                String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                        "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
+                String sql = "INSERT INTO MOVIES (ID,ORIGINAL_TITLE,RELEASE_DATE) " +
+                        "VALUES (1, 'Paul', '32', 'California');";
                 stmt.executeUpdate(sql);
 
                 sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
