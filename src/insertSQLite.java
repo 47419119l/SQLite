@@ -18,7 +18,7 @@ public class insertSQLite {
              */
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
-            c.setAutoCommit(false);
+
 
             /*
             Fem el insert.
@@ -34,10 +34,8 @@ public class insertSQLite {
             /*
             Executem el insert.
              */
-            preparedStatement .executeUpdate();
-            stmt.close();
-            c.commit();
-            c.close();
+            preparedStatement.executeUpdate();
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -57,12 +55,11 @@ public class insertSQLite {
              */
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
-            c.setAutoCommit(false);
 
             /*
             Fem el insert.
              */
-            String sql_insert = "INSERT INTO MOVIES" +
+            String sql_insert = "INSERT INTO ACTORS" +
                     " (ID,ID_PELICULA,NAME,CHARACTER) VALUES" +
                     " (?, ?, ?,?);";
 
@@ -75,11 +72,9 @@ public class insertSQLite {
             /*
             Executem el insert.
              */
-            preparedStatement .executeUpdate();
+            preparedStatement.executeUpdate();
 
-            stmt.close();
-            c.commit();
-            c.close();
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

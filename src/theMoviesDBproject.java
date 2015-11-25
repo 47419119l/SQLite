@@ -102,8 +102,8 @@ class theMovieDBproject {
 
             int ID = Integer.parseInt(String.valueOf(jb.get("id")));
             int ID_PELICULA = Integer.parseInt(String.valueOf(jb.get("cast_id")));
-            String NAME = String.valueOf(arra02.get("name"));
-            String CHARACTER=String.valueOf(arra02.get("character"));
+            String NAME = String.valueOf(jb.get("name"));
+            String CHARACTER=String.valueOf(jb.get("character"));
 
             System.out.println("ID :"+ID);
             System.out.println("ID pel·licula :"+ID_PELICULA);

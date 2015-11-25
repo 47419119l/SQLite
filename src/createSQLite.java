@@ -35,8 +35,6 @@ public class createSQLite {
                 stmt.executeUpdate(sql_actor);
 
 
-                stmt.close();
-                c.close();
 
             } catch ( Exception e ) {
                 System.err.println( e.getClass().getName() + ": " + e.getMessage() );
