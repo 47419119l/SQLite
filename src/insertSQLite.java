@@ -1,48 +1,101 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+import java.sql.*;
 
 /**
  * Created by 47419119l on 25/11/15.
  */
 public class insertSQLite {
 
-    public static void main(String[] args) {
-        {
-            Connection c = null;
-            Statement stmt = null;
-            try {
-                Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
-                c.setAutoCommit(false);
-                System.out.println("Opened database successfully");
+    public static void insertMovies(int ID, String ORIGINAL_TITLE,String RELEASE_DATE) {
+       Connection c = null;
+        Statement stmt = null;
+        try {
 
-                stmt = c.createStatement();
-                String sql = "INSERT INTO MOVIES (ID,ORIGINAL_TITLE,RELEASE_DATE) " +
-                        "VALUES (1, 'Paul', '32', 'California');";
-                stmt.executeUpdate(sql);
+            /*
+            Conectem amb la BBDD
+             */
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
+            c.setAutoCommit(false);
 
-                sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                        "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-                stmt.executeUpdate(sql);
+            /*
+            Fem el insert.
+             */
+            String sql_insert = "INSERT INTO MOVIES" +
+                    " (ID,ORIGINAL_TITLE,RELEASE_DATE) VALUES" +
+                    " (?, ?, ?);";
 
-                sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                        "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-                stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql_insert);
 
-                sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                        "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
-                stmt.executeUpdate(sql);
+            PreparedStatement preparedStatement = c.prepareStatement(sql_insert);
+            preparedStatement.setInt(1, ID);
+            preparedStatement.setString(2, ORIGINAL_TITLE);
+            preparedStatement.setString(3, RELEASE_DATE);
+            /*
+            Executem el insert.
+             */
+            preparedStatement .executeUpdate();
 
-                stmt.close();
-                c.commit();
-                c.close();
-            } catch ( Exception e ) {
-                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-                System.exit(0);
-            }
-            System.out.println("Records created successfully");
+            stmt.close();
+            c.commit();
+            c.close();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+    }
+    public static void insertActor(int ID,int ID_PELICULA,String NAME, String CHARACTER) {
+        String sql_actor = "CREATE TABLE ACTORS " +
+                "(ID_PELICULA    INT    NOT NULL," +
+                " ID   INT    NOT NULL,"+
+                " NAME TEXT    NOT NULL, " +
+                " CHARACTER   TEXT    NOT NULL," +
+                "PRIMARY KEY(ID_PELICULA, ID))";
+        Connection c = null;
+        Statement stmt = null;
+        try {
+
+            /*
+            Conectem amb la BBDD
+             */
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
+            c.setAutoCommit(false);
+
+            /*
+            Fem el insert.
+             */
+            String sql_insert = "INSERT INTO MOVIES" +
+                    " (ID,ID_PELICULA,NAME,CHARACTER) VALUES" +
+                    " (?, ?, ?,?);";
+
+            stmt.executeUpdate(sql_insert);
+
+            PreparedStatement preparedStatement = c.prepareStatement(sql_insert);
+            preparedStatement.setInt(1, ID);
+            preparedStatement.setInt(2, ID_PELICULA);
+            preparedStatement.setString(3, NAME);
+            preparedStatement.setString(4, CHARACTER);
+            /*
+            Executem el insert.
+             */
+            preparedStatement .executeUpdate();
+
+            stmt.close();
+            c.commit();
+            c.close();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

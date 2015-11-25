@@ -13,8 +13,7 @@ import java.sql.*;
 
 class theMovieDBproject {
     static String api_key="eec33652afa70e666fc6d094216e0714";
-    static Connection c = null;
-    static Statement stmt = null;
+
     /**
      * Extreu el HTML
      * @param urlToRead
@@ -63,18 +62,11 @@ class theMovieDBproject {
     }
 
     /**
-     * Funció per agafar pel·licules
+     * Funció per agafar pel·licules i fer inserts
      * @param cadena
      */
     public static void SJS (String cadena){
-        try {
 
-            /*
-            Conectem amb la BBDD
-             */
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:theMoviesDBproject.db");
-            c.setAutoCommit(false);
             /*
             Extreiem la informació del JSON
              */
@@ -83,41 +75,14 @@ class theMovieDBproject {
             int ID = Integer.parseInt(String.valueOf(arra02.get("id")));
             String ORIGINAL_TITLE = String.valueOf(arra02.get("original_title"));
             String RELEASE_DATE=String.valueOf(arra02.get("release_date"));
+
             System.out.println("ID :"+ID);
-            System.out.println("Titul original"+ORIGINAL_TITLE);
-            System.out.println("Data d'estrena" + RELEASE_DATE);
+            System.out.println("Titul original :"+ORIGINAL_TITLE);
+            System.out.println("Data d'estrena :" + RELEASE_DATE);
             /*
             Fem el insert.
              */
-
-            String sql_insert = "INSERT INTO MOVIES" +
-                    " (ID,ORIGINAL_TITLE,RELEASE_DATE) VALUES" +
-                    " (?, ?, ?);";
-
-            stmt.executeUpdate(sql_insert);
-
-
-            PreparedStatement preparedStatement = c.prepareStatement(sql_insert);
-            preparedStatement.setInt(1, ID);
-            preparedStatement.setString(2, ORIGINAL_TITLE);
-            preparedStatement.setString(3, RELEASE_DATE);
-            /*
-            Executem el insert.
-             */
-            preparedStatement .executeUpdate();
-
-            stmt.close();
-            c.commit();
-            c.close();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-
+            insertSQLite.insertMovies(ID, ORIGINAL_TITLE, RELEASE_DATE);
 
     }
 
@@ -134,7 +99,22 @@ class theMovieDBproject {
         for (int i = 0; i < arra03.size(); i++) {
 
             JSONObject jb= (JSONObject)arra03.get(i);
-            System.out.println(jb.get("character") + "<-->" + jb.get("name") + "<--->" + jb.get("id"));
+
+            int ID = Integer.parseInt(String.valueOf(jb.get("id")));
+            int ID_PELICULA = Integer.parseInt(String.valueOf(jb.get("cast_id")));
+            String NAME = String.valueOf(arra02.get("name"));
+            String CHARACTER=String.valueOf(arra02.get("character"));
+
+            System.out.println("ID :"+ID);
+            System.out.println("ID pel·licula :"+ID_PELICULA);
+            System.out.println("Nom :"+NAME);
+            System.out.println("Personatge :"+CHARACTER);
+
+
+            /*
+            Fem el insert
+             */
+            insertSQLite.insertActor(ID,ID_PELICULA,NAME,CHARACTER);
 
 
         }
