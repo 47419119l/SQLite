@@ -1,5 +1,4 @@
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+
 
 import java.sql.*;
 
@@ -9,7 +8,8 @@ import java.sql.*;
 public class insertSQLite {
 
     public static void insertMovies(int ID, String ORIGINAL_TITLE,String RELEASE_DATE) {
-       Connection c = null;
+
+        Connection c = null;
         Statement stmt = null;
         try {
 
@@ -27,8 +27,6 @@ public class insertSQLite {
                     " (ID,ORIGINAL_TITLE,RELEASE_DATE) VALUES" +
                     " (?, ?, ?);";
 
-            stmt.executeUpdate(sql_insert);
-
             PreparedStatement preparedStatement = c.prepareStatement(sql_insert);
             preparedStatement.setInt(1, ID);
             preparedStatement.setString(2, ORIGINAL_TITLE);
@@ -37,7 +35,6 @@ public class insertSQLite {
             Executem el insert.
              */
             preparedStatement .executeUpdate();
-
             stmt.close();
             c.commit();
             c.close();
@@ -50,12 +47,7 @@ public class insertSQLite {
 
     }
     public static void insertActor(int ID,int ID_PELICULA,String NAME, String CHARACTER) {
-        String sql_actor = "CREATE TABLE ACTORS " +
-                "(ID_PELICULA    INT    NOT NULL," +
-                " ID   INT    NOT NULL,"+
-                " NAME TEXT    NOT NULL, " +
-                " CHARACTER   TEXT    NOT NULL," +
-                "PRIMARY KEY(ID_PELICULA, ID))";
+
         Connection c = null;
         Statement stmt = null;
         try {
@@ -74,7 +66,6 @@ public class insertSQLite {
                     " (ID,ID_PELICULA,NAME,CHARACTER) VALUES" +
                     " (?, ?, ?,?);";
 
-            stmt.executeUpdate(sql_insert);
 
             PreparedStatement preparedStatement = c.prepareStatement(sql_insert);
             preparedStatement.setInt(1, ID);

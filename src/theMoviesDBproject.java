@@ -109,6 +109,7 @@ class theMovieDBproject {
             System.out.println("ID pel·licula :"+ID_PELICULA);
             System.out.println("Nom :"+NAME);
             System.out.println("Personatge :"+CHARACTER);
+            System.out.println();
 
 
             /*
