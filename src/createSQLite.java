@@ -27,10 +27,11 @@ public class createSQLite {
                 stmt.executeUpdate(sql_movies);
 
                 String sql_actor = "CREATE TABLE ACTORS " +
-                        "(ID INT PRIMARY KEY    NOT NULL," +
+                        "(ID INT    NOT NULL," +
                         " ID_PELICULA   INT    NOT NULL,"+
                         " NAME TEXT    NOT NULL, " +
-                        " CHARACTER   TEXT    NOT NULL)";
+                        " CHARACTER   TEXT    NOT NULL," +
+                        "PRIMARY KEY (ID,ID_PELICULA))";
 
                 stmt.executeUpdate(sql_actor);
 

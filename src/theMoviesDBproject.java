@@ -13,7 +13,7 @@ import java.sql.*;
 
 class theMovieDBproject {
     static String api_key="eec33652afa70e666fc6d094216e0714";
-
+    static int ID_PELICULA;
     /**
      * Extreu el HTML
      * @param urlToRead
@@ -37,6 +37,8 @@ class theMovieDBproject {
 
     public static void main(String[] args){
         String s = "";
+
+        createSQLite.main(args);
 
         for (int i = 0; i < 40; i++) {
             int peli = 600 +i;
@@ -73,6 +75,7 @@ class theMovieDBproject {
             Object obj02 =JSONValue.parse(cadena);
             JSONObject arra02=(JSONObject)obj02;
             int ID = Integer.parseInt(String.valueOf(arra02.get("id")));
+            ID_PELICULA=ID;
             String ORIGINAL_TITLE = String.valueOf(arra02.get("original_title"));
             String RELEASE_DATE=String.valueOf(arra02.get("release_date"));
 
@@ -101,7 +104,6 @@ class theMovieDBproject {
             JSONObject jb= (JSONObject)arra03.get(i);
 
             int ID = Integer.parseInt(String.valueOf(jb.get("id")));
-            int ID_PELICULA = Integer.parseInt(String.valueOf(jb.get("cast_id")));
             String NAME = String.valueOf(jb.get("name"));
             String CHARACTER=String.valueOf(jb.get("character"));
 
