@@ -52,14 +52,14 @@ class theMovieDBproject {
             try {
                 s = getHTML(peticioPeliculas);
                 SJS(s);
-                System.out.println("-----------------------");
                 s=getHTML(peticioActors);
                 SJC(s);
+                System.out.println("-----------------------");
             } catch (Exception e) {
 
             }
         }
-
+        selectSQLite.main(args);
 
     }
 
